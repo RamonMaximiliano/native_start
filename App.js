@@ -1,112 +1,37 @@
-import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { StyleSheet, Text, View, ScrollView } from "react-native";
+import Task from "./components/Task";
 
 export default function App() {
   return (
-    <ScrollView>
-       {/*ScrollView deixa fazer scroll caso os items passem do tamanho da tela*/}
-      <View style={styles.container}>
-        <View style={styles.taskContainer}>
-          {/*In react native you have to give style to the Text for color. */}
-          <Text style={styles.textColor}>
-            Open up App.js to start working on your app!
-          </Text>
-          <StatusBar style="auto" />
-        </View>
-        <View style={styles.taskContainer}>
-          {/*In react native you have to give style to the Text for color. */}
-          <Text style={styles.textColor}>
-            Open up App.js to start working on your app!
-          </Text>
-          <StatusBar style="auto" />
-        </View>
-        <View style={styles.taskContainer}>
-          {/*In react native you have to give style to the Text for color. */}
-          <Text style={styles.textColor}>
-            Open up App.js to start working on your app!
-          </Text>
-          <StatusBar style="auto" />
-        </View>
-        <View style={styles.taskContainer}>
-          {/*In react native you have to give style to the Text for color. */}
-          <Text style={styles.textColor}>
-            Open up App.js to start working on your app!
-          </Text>
-          <StatusBar style="auto" />
-        </View>
-        <View style={styles.taskContainer}>
-          {/*In react native you have to give style to the Text for color. */}
-          <Text style={styles.textColor}>
-            Open up App.js to start working on your app!
-          </Text>
-          <StatusBar style="auto" />
-        </View>
-        <View style={styles.taskContainer}>
-          {/*In react native you have to give style to the Text for color. */}
-          <Text style={styles.textColor}>
-            Open up App.js to start working on your app!
-          </Text>
-          <StatusBar style="auto" />
-        </View>
-        <View style={styles.taskContainer}>
-          {/*In react native you have to give style to the Text for color. */}
-          <Text style={styles.textColor}>
-            Open up App.js to start working on your app!
-          </Text>
-          <StatusBar style="auto" />
-        </View>
-        <View style={styles.taskContainer}>
-          {/*In react native you have to give style to the Text for color. */}
-          <Text style={styles.textColor}>
-            Open up App.js to start working on your app!
-          </Text>
-          <StatusBar style="auto" />
-        </View>
-        <View style={styles.taskContainer}>
-          {/*In react native you have to give style to the Text for color. */}
-          <Text style={styles.textColor}>
-            Open up App.js to start working on your app!
-          </Text>
-          <StatusBar style="auto" />
-        </View>
-        <View style={styles.taskContainer}>
-          {/*In react native you have to give style to the Text for color. */}
-          <Text style={styles.textColor}>
-            Open up App.js to start working on your app!
-          </Text>
-          <StatusBar style="auto" />
-        </View>
-        <View style={styles.taskContainer}>
-          {/*In react native you have to give style to the Text for color. */}
-          <Text style={styles.textColor}>
-            Open up App.js to start working on your app!
-          </Text>
-          <StatusBar style="auto" />
-        </View>
-        <View style={styles.taskContainer}>
-          {/*In react native you have to give style to the Text for color. */}
-          <Text style={styles.textColor}>
-            Open up App.js to start working on your app!
-          </Text>
-          <StatusBar style="auto" />
-        </View>
-        <View style={styles.taskContainer}>
-          {/*In react native you have to give style to the Text for color. */}
-          <Text style={styles.textColor}>
-            Open up App.js to start working on your app!
-          </Text>
-          <StatusBar style="auto" />
-        </View>
-        <View style={styles.taskContainer}>
-          {/*In react native you have to give style to the Text for color. */}
-          <Text style={styles.textColor}>
-            Open up App.js to start working on your app!
-          </Text>
-          <StatusBar style="auto" />
-        </View>
+    <View>
+      <View style={styles.mainTitle}>
+        <Text style={styles.textColorTitle}>Today's tasks</Text>
       </View>
-    </ScrollView>
+      <ScrollView>
+        {/*ScrollView deixa fazer scroll caso os items passem do tamanho da tela*/}
+        <View style={styles.container}>
+          <Task taskText="Test"></Task>
+          <Task taskText="Test"></Task>
+          <Task taskText="Test"></Task>
+          <Task taskText="Test"></Task>
+          <Task taskText="Test"></Task>
+          <Task taskText="Test"></Task>
+          <Task taskText="Test"></Task>
+          <Task taskText="Test"></Task>
+          <Task taskText="Test"></Task>
+          <Task taskText="Test"></Task>
+          <Task taskText="Test"></Task>
+          <Task taskText="Test"></Task>
+          <Task taskText="Test"></Task>
+          <Task taskText="Test"></Task>
+          <Task taskText="Test"></Task>
+          <Task taskText="Test"></Task>
+          <Task taskText="Test"></Task>
+          <Task taskText="Test"></Task>
+        </View>
+      </ScrollView>
+    </View>
   );
 }
 
@@ -118,18 +43,18 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 
-  taskContainer: {
-    color: "blue",
-    margin: 20,
-    padding: 20,
-    backgroundColor: "red",
-    borderRadius: 5,
-  },
-  textColor: {
+  mainTitle: {
     color: "white",
+    padding: 20,
+    backgroundColor: "blue",
+    alignItems: "center",
+  },
+  textColorTitle: {
+    color: "white",
+    fontSize: 25,
+    fontWeight: "bold",
   },
 });
-
 
 /* 
 
@@ -137,6 +62,8 @@ REACT NATIVE:
 
 Part 1: 5min
 https://www.youtube.com/watch?v=0kL6nhutjQ8&ab_channel=MadeWithMatt
+
+
 Part 2:
 https://www.youtube.com/watch?v=00HFzh3w1B8&ab_channel=MadeWithMatt
 
