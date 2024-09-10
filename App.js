@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Toast from "react-native-toast-message";
 import {
   StyleSheet,
   Text,
@@ -14,51 +15,74 @@ export default function App() {
   const [tasks, setTasks] = useState([]);
 
   function updateTask() {
-    setTasks([...tasks, newTask]);
-    setNewTask("");
+    if (newTask) {
+      setTasks([...tasks, newTask]);
+      setNewTask("");
+      Toast.show({
+        type: "success",
+        text1: "A New task has been added 👋",
+      });
+    } else {
+      Toast.show({
+        type: "error",
+        text1: "Please write your task 👋",
+      });
+    }
   }
 
   function clearList() {
-    setTasks([])
+    setTasks([]);
+    Toast.show({
+      type: "success",
+      text1: "Your task list has been cleared 👋",
+    });
   }
 
   return (
-    <View style={styles.home}>
-      <View style={styles.mainTitle}>
-        <TouchableOpacity onPress={() => clearList()}>
-          <Text style={styles.textColorTitle}>Today's tasks</Text>
-        </TouchableOpacity>
-        <Text style={styles.createdBy}>Created by Ramon</Text>
-        <Text style={styles.createdByClear}>
-          Click on app's title to clear the list
-        </Text>
-        <Text style={styles.createdByClear}>
-          Double click a task to mark as finished
-        </Text>
-      </View>
-
-      <ScrollView style={styles.ScrollView}>
-        {/*ScrollView deixa fazer scroll caso os items passem do tamanho da tela*/}
-        <View style={styles.container}>
-          {tasks.map((item, index) => {
-            return <Task taskText={item} key={index}></Task>;
-          })}
+    <>
+      <View style={styles.home}>
+        <View style={styles.mainTitle}>
+          <TouchableOpacity onPress={() => clearList()}>
+            <Text style={styles.textColorTitle}>Today's tasks</Text>
+          </TouchableOpacity>
+          <Text style={styles.createdBy}>Created by Ramon</Text>
+          <Text style={styles.createdByClear}>
+            Click on app's title to clear the list
+          </Text>
+          <Text style={styles.createdByClear}>
+            Double click a task to mark as finished
+          </Text>
         </View>
-      </ScrollView>
 
-      <View style={styles.bottom}>
-        <TextInput
-          style={styles.taskInput}
-          placeholder="Type your task"
-          value={newTask}
-          onChangeText={(e) => setNewTask(e)}
-        />
-        {/*We need to use this TouchableOpacity component to handle press events*/}
-        <TouchableOpacity style={styles.plusSign} onPress={() => updateTask()}>
-          <Text style={styles.plusSignText}>+</Text>
-        </TouchableOpacity>
+        <ScrollView style={styles.ScrollView}>
+          {/*ScrollView deixa fazer scroll caso os items passem do tamanho da tela*/}
+          <View style={styles.container}>
+            {tasks.map((item, index) => {
+              return <Task taskText={item} key={index}></Task>;
+            })}
+          </View>
+        </ScrollView>
+
+        <View style={styles.bottom}>
+          <TextInput
+            style={styles.taskInput}
+            placeholder="Type your task"
+            value={newTask}
+            onChangeText={(e) => setNewTask(e)}
+          />
+          {/*We need to use this TouchableOpacity component to handle press events*/}
+          <TouchableOpacity
+            style={styles.plusSign}
+            onPress={() => updateTask()}
+          >
+            <Text style={styles.plusSignText}>+</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-    </View>
+
+      {/*The Toast needs to be added at the bottom of the app for it to work*/}
+      <Toast />
+    </>
   );
 }
 
@@ -150,6 +174,8 @@ npm install --save react-native-double-tap
 
 https://stackoverflow.com/questions/74769646/how-to-use-double-tap-in-react-native
 
+npm install --save react-native-toast-message
 
+https://github.com/calintamas/react-native-toast-message/blob/main/docs/quick-start.md
 
 */
