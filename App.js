@@ -1,74 +1,155 @@
-import React from "react";
-import { StyleSheet, Text, View, ScrollView } from "react-native";
+import React, { useState } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  TextInput,
+  TouchableOpacity,
+} from "react-native";
 import Task from "./components/Task";
 
 export default function App() {
+  const [newTask, setNewTask] = useState("");
+  const [tasks, setTasks] = useState([]);
+
+  function updateTask() {
+    setTasks([...tasks, newTask]);
+    setNewTask("");
+  }
+
+  function clearList() {
+    setTasks([])
+  }
+
   return (
-    <View>
+    <View style={styles.home}>
       <View style={styles.mainTitle}>
-        <Text style={styles.textColorTitle}>Today's tasks</Text>
+        <TouchableOpacity onPress={() => clearList()}>
+          <Text style={styles.textColorTitle}>Today's tasks</Text>
+        </TouchableOpacity>
+        <Text style={styles.createdBy}>Created by Ramon</Text>
+        <Text style={styles.createdByClear}>
+          Click on app's title to clear the list
+        </Text>
+        <Text style={styles.createdByClear}>
+          Double click a task to mark as finished
+        </Text>
       </View>
-      <ScrollView>
+
+      <ScrollView style={styles.ScrollView}>
         {/*ScrollView deixa fazer scroll caso os items passem do tamanho da tela*/}
         <View style={styles.container}>
-          <Task taskText="Test"></Task>
-          <Task taskText="Test"></Task>
-          <Task taskText="Test"></Task>
-          <Task taskText="Test"></Task>
-          <Task taskText="Test"></Task>
-          <Task taskText="Test"></Task>
-          <Task taskText="Test"></Task>
-          <Task taskText="Test"></Task>
-          <Task taskText="Test"></Task>
-          <Task taskText="Test"></Task>
-          <Task taskText="Test"></Task>
-          <Task taskText="Test"></Task>
-          <Task taskText="Test"></Task>
-          <Task taskText="Test"></Task>
-          <Task taskText="Test"></Task>
-          <Task taskText="Test"></Task>
-          <Task taskText="Test"></Task>
-          <Task taskText="Test"></Task>
+          {tasks.map((item, index) => {
+            return <Task taskText={item} key={index}></Task>;
+          })}
         </View>
       </ScrollView>
+
+      <View style={styles.bottom}>
+        <TextInput
+          style={styles.taskInput}
+          placeholder="Type your task"
+          value={newTask}
+          onChangeText={(e) => setNewTask(e)}
+        />
+        {/*We need to use this TouchableOpacity component to handle press events*/}
+        <TouchableOpacity style={styles.plusSign} onPress={() => updateTask()}>
+          <Text style={styles.plusSignText}>+</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  home: {
+    flex: 1,
+  },
   container: {
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: "#E8EAED",
     alignItems: "center",
     justifyContent: "center",
+    marginTop: 10,
+  },
+  ScrollView: {
+    backgroundColor: "#E8EAED",
+    marginBottom: 80,
   },
 
   mainTitle: {
     color: "white",
     padding: 20,
-    backgroundColor: "blue",
+    backgroundColor: "#07005c",
     alignItems: "center",
   },
+
   textColorTitle: {
     color: "white",
-    fontSize: 25,
+    fontSize: 35,
     fontWeight: "bold",
+  },
+  createdBy: {
+    color: "white",
+    fontSize: 15,
+    fontWeight: "bold",
+    marginTop: 5,
+  },
+  createdByClear: {
+    color: "white",
+    fontSize: 14,
+    marginTop: 5,
+  },
+
+  bottom: {
+    width: "100%",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    backgroundColor: "#85b1f0",
+    paddingRight: 25,
+    paddingLeft: 25,
+    position: "absolute",
+    bottom: 0,
+  },
+
+  taskInput: {
+    width: "60%",
+    textAlign: "center",
+    alignItems: "center",
+    backgroundColor: "white",
+    padding: 10,
+    margin: 15,
+    borderRadius: 50,
+    fontSize: 15,
+  },
+
+  plusSign: {
+    width: 60,
+    height: 60,
+    textAlign: "center",
+    alignItems: "center",
+    backgroundColor: "white",
+    padding: 3,
+    margin: 15,
+    borderRadius: 50,
+  },
+  plusSignText: {
+    fontSize: 37,
+    color: "blue",
   },
 });
 
 /* 
 
-REACT NATIVE:
-
-Part 1: 5min
-https://www.youtube.com/watch?v=0kL6nhutjQ8&ab_channel=MadeWithMatt
-
-
-Part 2:
-https://www.youtube.com/watch?v=00HFzh3w1B8&ab_channel=MadeWithMatt
-
 ANOTHER TO DO:
 https://www.youtube.com/watch?v=cmXZNGXjXPM&ab_channel=TheAwesomeDev
+
+npm install --save react-native-double-tap
+
+https://stackoverflow.com/questions/74769646/how-to-use-double-tap-in-react-native
+
 
 
 */
