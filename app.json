@@ -2,6 +2,11 @@
   "expo": {
     "name": "native_start",
     "slug": "native_start",
-    "version": "1.0.0"
+    "version": "1.0.0",
+    "extra": {
+      "eas": {
+        "projectId": "a25f4cb0-7ca9-44f8-8afa-beacc3cac331"
+      }
+    }
   }
 }
