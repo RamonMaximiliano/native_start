@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Toast from "react-native-toast-message";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import {
   StyleSheet,
   Text,
@@ -14,9 +16,39 @@ export default function App() {
   const [newTask, setNewTask] = useState("");
   const [tasks, setTasks] = useState([]);
 
+  const storeTasks = async (tasks) => {
+    try {
+      await AsyncStorage.setItem('tasks', JSON.stringify(tasks));
+    } catch (e) {
+      Toast.show({
+        type: "error",
+        text1: "Failed to save the tasks",
+      });
+    }
+  };
+
+  const getList = async () => {
+    try {
+      const list = await AsyncStorage.getItem('tasks');
+      if (list !== null) {
+        setTasks(JSON.parse(list));
+      }
+    } catch (e) {
+      Toast.show({
+        type: "error",
+        text1: "Failed to load the todos",
+      });
+    }
+  };
+
+  useEffect(() => {
+    getList();
+  }, []);
+
   function updateTask() {
     if (newTask) {
       setTasks([...tasks, newTask]);
+      storeTasks([...tasks, newTask])
       setNewTask("");
       Toast.show({
         type: "success",
@@ -32,6 +64,7 @@ export default function App() {
 
   function clearList() {
     setTasks([]);
+    AsyncStorage.removeItem('tasks'); 
     Toast.show({
       type: "success",
       text1: "Your task list has been cleared 👋",
