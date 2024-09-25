@@ -19,7 +19,7 @@ const Task = (props) => {
       >
         <View style={styles.iconsView}>
           <TouchableOpacity onPress={() => editTask(props.taskText)}>
-            <FontAwesome name="pencil-square-o" size={24} color="#07005c" />
+            <FontAwesome name="pencil-square-o" size={28} color="#07005c" />
           </TouchableOpacity>
         </View>
 
@@ -27,7 +27,7 @@ const Task = (props) => {
           <Text style={styles.taskText}>{props.taskText}</Text>
         </View>
         <TouchableOpacity onPress={() => deleteTask(props.taskText)}>
-          <FontAwesome name="trash-o" size={24} color="#07005c" />
+          <FontAwesome name="trash-o" size={28} color="#07005c" />
         </TouchableOpacity>
       </View>
     </DoubleClick>

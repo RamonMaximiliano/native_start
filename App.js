@@ -12,9 +12,6 @@ export default function App() {
 
 /* 
 
-Add feature to not allow to add duplicated task
-
-
 
 
 npm install --save react-native-double-tap

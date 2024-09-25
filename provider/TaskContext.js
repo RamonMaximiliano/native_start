@@ -16,7 +16,7 @@ export const TaskProvider = ({ children }) => {
     } catch (e) {
       Toast.show({
         type: "error",
-        text1: "Failed to save the tasks",
+        text1: "Failed to save the tasks ❌",
       });
     }
   };
@@ -31,7 +31,7 @@ export const TaskProvider = ({ children }) => {
     } catch (e) {
       Toast.show({
         type: "error",
-        text1: "Failed to load the todos",
+        text1: "Failed to load the tasks ❌",
       });
     }
   };
@@ -44,7 +44,7 @@ export const TaskProvider = ({ children }) => {
   /*4 FUNCTION*/
   // Function to update or add a new task
   function updateTask() {
-    let checkExists = tasks.indexOf(newTask)
+    let checkExists = tasks.indexOf(newTask);
     if (edited !== null) {
       const updatedTasks = tasks.map((task) =>
         task === edited ? newTask : task
@@ -55,12 +55,12 @@ export const TaskProvider = ({ children }) => {
       setNewTask("");
       Toast.show({
         type: "success",
-        text1: "Task updated successfully 👋",
+        text1: "Task updated successfully ✅",
       });
-    } else if(checkExists > -1){
+    } else if (checkExists > -1) {
       Toast.show({
         type: "error",
-        text1: "This task already exists 👋",
+        text1: "This task already exists 🚸",
       });
     } else {
       if (newTask) {
@@ -70,12 +70,12 @@ export const TaskProvider = ({ children }) => {
         setNewTask("");
         Toast.show({
           type: "success",
-          text1: "A New task has been added 👋",
+          text1: "A New task has been added ✅",
         });
       } else {
         Toast.show({
           type: "error",
-          text1: "Please write your task 👋",
+          text1: "Please write your task ✍️",
         });
       }
     }
@@ -87,7 +87,7 @@ export const TaskProvider = ({ children }) => {
     AsyncStorage.removeItem("tasks");
     Toast.show({
       type: "success",
-      text1: "Your task list has been cleared 👋",
+      text1: "Your task list has been cleared 🧹",
     });
   }
 
@@ -97,7 +97,7 @@ export const TaskProvider = ({ children }) => {
     AsyncStorage.removeItem("tasks");
     Toast.show({
       type: "success",
-      text1: "Your task list has been cleared 👋",
+      text1: "Your task list has been cleared 🧹",
     });
   }
 
@@ -105,19 +105,19 @@ export const TaskProvider = ({ children }) => {
   function deleteTask(e) {
     try {
       setTasks(
-        tasks.filter((item)=>{
-          return item != e
+        tasks.filter((item) => {
+          return item != e;
         })
-      )
-      storeTasks(tasks);    
+      );
+      storeTasks(tasks);
       Toast.show({
         type: "success",
-        text1: "Task deleted 👋",
+        text1: "Task deleted 🗑️",
       });
     } catch (e) {
       Toast.show({
         type: "error",
-        text1: "Something went wrong",
+        text1: "Something went wrong ❌",
       });
     }
   }
@@ -127,8 +127,11 @@ export const TaskProvider = ({ children }) => {
   function editTask(task) {
     setNewTask(task); // Set the task to the input field
     setEdited(task); // Store the original task to be edited
+    Toast.show({
+      type: "success",
+      text1: "Edit your task ✏️",
+    });
   }
-  
 
   return (
     <TaskContext.Provider
@@ -141,7 +144,8 @@ export const TaskProvider = ({ children }) => {
         updateTask,
         clearList,
         deleteTask,
-        editTask
+        editTask,
+        edited,
       }}
     >
       {children}

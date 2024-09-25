@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import Toast from "react-native-toast-message";
 import { TaskContext } from "../provider/TaskContext";
 import Task from "./Task";
+import Fontisto from "@expo/vector-icons/Fontisto";
 
 import {
   StyleSheet,
@@ -9,11 +10,20 @@ import {
   View,
   ScrollView,
   TextInput,
-  TouchableOpacity
+  TouchableOpacity,
 } from "react-native";
 
 export default function MainScreen() {
-  const {newTask,setNewTask, tasks,setTasks,storeTasks,updateTask,clearList} = useContext(TaskContext);
+  const {
+    newTask,
+    setNewTask,
+    tasks,
+    setTasks,
+    storeTasks,
+    updateTask,
+    clearList,
+    edited,
+  } = useContext(TaskContext);
 
   return (
     <>
@@ -40,7 +50,7 @@ export default function MainScreen() {
           </View>
         </ScrollView>
 
-        <View style={styles.bottom}>
+        <View style={edited !== null ? styles.bottom : styles.bottomEdit}>
           <TextInput
             style={styles.taskInput}
             placeholder="Type your task"
@@ -48,12 +58,22 @@ export default function MainScreen() {
             onChangeText={(e) => setNewTask(e)}
           />
           {/*We need to use this TouchableOpacity component to handle press events*/}
-          <TouchableOpacity
-            style={styles.plusSign}
-            onPress={() => updateTask()}
-          >
-            <Text style={styles.plusSignText}>+</Text>
-          </TouchableOpacity>
+
+          {edited !== null ? (
+            <TouchableOpacity
+              style={styles.saveSign}
+              onPress={() => updateTask()}
+            >
+              <Fontisto name="save" size={24} color="blue" />
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity
+              style={styles.plusSign}
+              onPress={() => updateTask()}
+            >
+              <Text style={styles.plusSignText}>+</Text>
+            </TouchableOpacity>
+          )}
         </View>
       </View>
 
@@ -82,6 +102,7 @@ const styles = StyleSheet.create({
   mainTitle: {
     color: "white",
     padding: 20,
+    paddingTop:25,
     backgroundColor: "#07005c",
     alignItems: "center",
   },
@@ -114,6 +135,17 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 0,
   },
+  bottomEdit: {
+    width: "100%",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    backgroundColor: "blue",
+    paddingRight: 25,
+    paddingLeft: 25,
+    position: "absolute",
+    bottom: 0,
+  },
 
   taskInput: {
     width: "60%",
@@ -136,9 +168,20 @@ const styles = StyleSheet.create({
     margin: 15,
     borderRadius: 50,
   },
+
+  saveSign: {
+    width: 60,
+    height: 60,
+    textAlign: "center",
+    alignItems: "center",
+    backgroundColor: "white",
+    padding: 15,
+    margin: 15,
+    borderRadius: 50,
+  },
+
   plusSignText: {
     fontSize: 37,
     color: "blue",
   },
 });
-
